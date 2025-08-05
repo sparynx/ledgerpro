@@ -1,8 +1,20 @@
+import { useEffect, useState } from 'react';
 'use client';
 
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+
+interface UserProfile {
+  id: string;
+  firebaseUid: string;
+  email: string;
+  displayName?: string;
+  username?: string;
+  stateCode?: string;
+  isAdmin: boolean;
+  isActive: boolean;
+  // Add any other fields you expect from the user profile API
+}
 
 interface AdminProtectedRouteProps {
   children: React.ReactNode;
@@ -12,7 +24,7 @@ interface AdminProtectedRouteProps {
 export default function AdminProtectedRoute({ children, fallback }: AdminProtectedRouteProps) {
   const { user, loading } = useAuth();
   const router = useRouter();
-  const [userProfile, setUserProfile] = useState<any>(null);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [profileLoading, setProfileLoading] = useState(true);
 
   useEffect(() => {
@@ -37,6 +49,8 @@ export default function AdminProtectedRoute({ children, fallback }: AdminProtect
         setUserProfile(null);
       }
     } catch (error) {
+"use client";
+
       console.error('Error fetching user profile:', error);
       setUserProfile(null);
     } finally {

@@ -5,6 +5,7 @@ import AdminProtectedRoute from '@/components/auth/AdminProtectedRoute';
 import AdminNavbar from '@/components/layout/AdminNavbar';
 import ExportReportButton from '@/components/admin/ExportReportButton';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
@@ -87,12 +88,12 @@ export default function AdminDashboard() {
                 <a href="/admin/expenses" className="block w-full text-left px-4 py-3 text-sm font-medium text-blue-700 bg-blue-50 rounded-md hover:bg-blue-100">
                   View Expenses
                 </a>
-                <a href="/admin/receipts" className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-700 bg-gray-50 rounded-md hover:bg-gray-100">
+                <Link href="/admin/receipts" className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-700 bg-gray-50 rounded-md hover:bg-gray-100">
                   Review Receipts
-                </a>
-                <a href="/admin/members" className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-700 bg-gray-50 rounded-md hover:bg-gray-100">
+                </Link>
+                <Link href="/admin/members" className="block w-full text-left px-4 py-3 text-sm font-medium text-gray-700 bg-gray-50 rounded-md hover:bg-gray-100">
                   Manage Members
-                </a>
+                </Link>
               </div>
             </div>
             <div className="bg-white rounded-lg shadow p-6">
