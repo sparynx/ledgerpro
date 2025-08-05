@@ -58,6 +58,16 @@ const ImageDropzone = ({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
+  const handleFileSelection = (file: File) => {
+    if (file.size > 5 * 1024 * 1024) {
+      return;
+    }
+    setSelectedFile(file);
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
+    onFileSelect(file);
+  };
+
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragOver(true);
@@ -76,17 +86,6 @@ const ImageDropzone = ({
       handleFileSelection(files[0]);
     }
   }, [handleFileSelection]);
-
-  const handleFileSelection = (file: File) => {
-    if (file.size > 5 * 1024 * 1024) {
-      return;
-    }
-    
-    setSelectedFile(file);
-    const url = URL.createObjectURL(file);
-    setPreviewUrl(url);
-    onFileSelect(file);
-  };
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
