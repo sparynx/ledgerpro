@@ -13,7 +13,7 @@ interface Contribution {
   dueDate: string;
 }
 
-export default function EditContributionPage({ params }: { params: { id: string } }) {
+export default function EditContributionPage({ params }: any) {
   const [contribution, setContribution] = useState<Contribution | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
