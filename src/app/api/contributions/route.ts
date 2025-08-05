@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -36,13 +36,13 @@ export async function POST(request: NextRequest) {
       data: {
         title,
         description,
-        amount: parseFloat(amount),
+        amount: new Prisma.Decimal(amount),
         dueDate: new Date(dueDate),
         isActive: true,
       },
     });
 
-    return NextResponse.json(contribution);
+    return NextResponse.json(contribution, { status: 201 });
   } catch (error) {
     console.error('Error creating contribution:', error);
     return NextResponse.json(
