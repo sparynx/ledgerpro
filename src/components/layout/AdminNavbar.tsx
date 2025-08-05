@@ -1,6 +1,7 @@
 'use client';
 
 import { useAuth } from '@/context/AuthContext';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -49,13 +50,16 @@ export default function AdminNavbar() {
             {user && (
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-2">
-                  {user.photoURL && (
-                    <img
-                      src={user.photoURL}
-                      alt={user.displayName || 'User'}
-                      className="w-8 h-8 rounded-full"
-                    />
-                  )}
+          {user.photoURL && (
+            <Image
+              src={user.photoURL}
+              alt={user.displayName || 'User'}
+              className="w-8 h-8 rounded-full"
+              width={32}
+              height={32}
+              unoptimized
+            />
+          )}
                   <span className="text-sm font-medium text-gray-700">
                     {user.displayName || user.email}
                   </span>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -157,10 +158,13 @@ export default function Navbar() {
                       className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                     >
                       {user.photoURL && (
-                        <img
+                        <Image
                           src={user.photoURL}
                           alt={user.displayName || 'User'}
                           className="w-8 h-8 rounded-full border-2 border-gray-200"
+                          width={32}
+                          height={32}
+                          unoptimized
                         />
                       )}
                       <span className="max-w-32 truncate">{user.displayName || user.email}</span>
@@ -287,10 +291,13 @@ export default function Navbar() {
               <div className="pt-4 pb-3 border-t border-gray-200">
                 <div className="flex items-center px-4 mb-3">
                   {user.photoURL && (
-                    <img
+                    <Image
                       src={user.photoURL}
                       alt={user.displayName || 'User'}
                       className="w-10 h-10 rounded-full border-2 border-gray-200"
+                      width={40}
+                      height={40}
+                      unoptimized
                     />
                   )}
                   <div className="ml-3">

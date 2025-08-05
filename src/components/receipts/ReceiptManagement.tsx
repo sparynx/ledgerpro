@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 interface Receipt {
   id: string;
@@ -178,10 +179,13 @@ export default function ReceiptManagement() {
               )}
 
               <div className="mb-4">
-                <img
+                <Image
                   src={receipt.imageUrl}
                   alt="Receipt"
                   className="w-full h-48 object-cover rounded-lg border"
+                  width={768}
+                  height={192}
+                  unoptimized
                 />
               </div>
 
