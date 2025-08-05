@@ -1,6 +1,18 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
+
+interface UserProfile {
+  id: string;
+  firebaseUid: string;
+  email: string;
+  displayName?: string;
+  username?: string;
+  stateCode?: string;
+  isAdmin: boolean;
+  isActive: boolean;
+}
 import { useAuth } from '@/context/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -59,12 +71,11 @@ const ImageDropzone = ({
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragOver(false);
-    
     const files = e.dataTransfer.files;
     if (files.length > 0) {
       handleFileSelection(files[0]);
     }
-  }, []);
+  }, [handleFileSelection]);
 
   const handleFileSelection = (file: File) => {
     if (file.size > 5 * 1024 * 1024) {
@@ -119,11 +130,17 @@ const ImageDropzone = ({
         ) : previewUrl ? (
           <div className="text-center">
             <div className="relative mx-auto mb-3 sm:mb-4 w-24 h-24 sm:w-32 sm:h-32 rounded-lg overflow-hidden border border-slate-200">
-              <img 
-                src={previewUrl} 
-                alt="Receipt preview" 
+            {previewUrl && (
+              <Image
+                src={previewUrl}
+                alt="Receipt preview"
                 className="w-full h-full object-cover"
+                fill
+                sizes="96px"
+                style={{ objectFit: 'cover' }}
+                unoptimized
               />
+            )}
             </div>
             <p className="text-sm sm:text-base font-semibold text-slate-800 mb-1 truncate px-2">{selectedFile?.name}</p>
             <p className="text-xs sm:text-sm text-slate-600 font-medium">
@@ -197,13 +214,14 @@ export default function ReceiptUpload() {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState('');
-  const [userProfile, setUserProfile] = useState<any>(null);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
   useEffect(() => {
     if (contributionId) {
       fetchContribution();
     }
     fetchUserProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contributionId, user?.uid]);
 
   const fetchContribution = async () => {
@@ -262,6 +280,12 @@ export default function ReceiptUpload() {
 
     if (!imageFile) {
       setError('Please select an image file');
+      setIsSubmitting(false);
+      setIsUploading(false);
+      return;
+    }
+    if (!userProfile) {
+      setError('User profile not loaded. Please try again.');
       setIsSubmitting(false);
       setIsUploading(false);
       return;

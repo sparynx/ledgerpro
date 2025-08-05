@@ -28,6 +28,7 @@ export default function ReceiptManagement() {
 
   useEffect(() => {
     fetchReceipts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedStatus]);
 
   const fetchReceipts = async () => {
@@ -39,7 +40,7 @@ export default function ReceiptManagement() {
       } else {
         setError('Failed to fetch receipts');
       }
-    } catch (error) {
+    } catch {
       setError('Error loading receipts');
     } finally {
       setLoading(false);
@@ -61,7 +62,7 @@ export default function ReceiptManagement() {
       } else {
         setError('Failed to update receipt status');
       }
-    } catch (error) {
+    } catch {
       setError('Error updating receipt status');
     }
   };
