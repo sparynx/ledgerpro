@@ -1,9 +1,35 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
+<<<<<<< HEAD
 
 export async function GET(req: NextRequest) {
   try {
     const users = await prisma.user.findMany({
+=======
+import { Prisma } from '@prisma/client';
+
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const stateCode = searchParams.get('stateCode');
+    const q = searchParams.get('q'); // generic query (partial match on username/displayName/email)
+    const where: Prisma.UserWhereInput = {};
+
+    if (stateCode) {
+      (where as any).stateCode = { equals: stateCode.toUpperCase() };
+    }
+
+    if (q) {
+      (where as any).OR = [
+        { username: { contains: q, mode: 'insensitive' } },
+        { displayName: { contains: q, mode: 'insensitive' } },
+        { email: { contains: q, mode: 'insensitive' } },
+      ];
+    }
+
+    const users = await prisma.user.findMany({
+      where,
+>>>>>>> e201f34 (added stuff)
       orderBy: { createdAt: 'desc' },
       select: {
         id: true,
@@ -17,6 +43,10 @@ export async function GET(req: NextRequest) {
     });
     return NextResponse.json(users);
   } catch (error) {
+<<<<<<< HEAD
+=======
+    console.error('Error fetching users:', error);
+>>>>>>> e201f34 (added stuff)
     return NextResponse.json({ message: 'Failed to fetch users' }, { status: 500 });
   }
 }

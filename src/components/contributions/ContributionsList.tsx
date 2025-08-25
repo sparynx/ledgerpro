@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
 
 interface Contribution {
   id: string;
@@ -16,6 +17,7 @@ export default function ContributionsList() {
   const [contributions, setContributions] = useState<Contribution[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const { user } = useAuth();
 
   useEffect(() => {
     fetchContributions();
@@ -23,9 +25,15 @@ export default function ContributionsList() {
 
   const fetchContributions = async () => {
     try {
-      const response = await fetch('/api/contributions');
-      if (response.ok) {
-        const data = await response.json();
+  // send firebaseUid so the server can exclude contributions the user already has receipts for
+  const params = new URLSearchParams();
+  if (user?.uid) params.set('firebaseUid', user.uid);
+  // hide admin/manual entries from member view
+  params.set('excludeAdminManual', 'true');
+
+  const response = await fetch(`/api/contributions?${params.toString()}`);
+f)
+onst data = await response.json();
         setContributions(data);
       } else {
         setError('Failed to fetch contributions');

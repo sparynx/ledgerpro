@@ -3,10 +3,51 @@ import { PrismaClient, Prisma } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+<<<<<<< HEAD
 export async function GET() {
   try {
     const contributions = await prisma.contribution.findMany({
       where: { isActive: true },
+=======
+export async function GET(request: NextRequest) {
+  try {
+    // support optional query params to customize the member view
+    // - firebaseUid: exclude contributions the user already has a receipt for
+    // - excludeAdminManual: when 'true', hide contributions that look like manual/admin adjustments
+    const { searchParams } = new URL(request.url);
+    const firebaseUid = searchParams.get('firebaseUid');
+    const excludeAdminManual = searchParams.get('excludeAdminManual');
+
+  // build a Prisma where clause
+  type WithNot = Prisma.ContributionWhereInput & { NOT?: Prisma.ContributionWhereInput[] };
+  const where: WithNot = { isActive: true };
+
+  const notConditions: Prisma.ContributionWhereInput[] = [];
+
+    // If firebaseUid provided, map to internal user id and exclude contributions
+    // that the user already has receipts for.
+    if (firebaseUid) {
+      const user = await prisma.user.findUnique({ where: { firebaseUid } });
+      if (user) {
+        notConditions.push({ receipts: { some: { userId: user.id } } });
+      }
+    }
+
+    // Optionally hide contributions that appear to be manual/admin adjustments.
+    // Assumption: admin/manual contributions include the words 'manual' or 'admin' in the title.
+    if (excludeAdminManual === 'true') {
+      notConditions.push({ title: { contains: 'manual', mode: 'insensitive' } });
+      notConditions.push({ title: { contains: 'admin', mode: 'insensitive' } });
+    }
+
+    if (notConditions.length > 0) {
+      // assign NOT array to where (typed)
+      where.NOT = notConditions;
+    }
+
+    const contributions = await prisma.contribution.findMany({
+      where,
+>>>>>>> e201f34 (added stuff)
       orderBy: { createdAt: 'desc' },
     });
 
