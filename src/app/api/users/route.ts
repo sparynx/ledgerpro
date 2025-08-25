@@ -1,11 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-<<<<<<< HEAD
-
-export async function GET(req: NextRequest) {
-  try {
-    const users = await prisma.user.findMany({
-=======
 import { Prisma } from '@prisma/client';
 
 export async function GET(req: NextRequest) {
@@ -29,7 +23,6 @@ export async function GET(req: NextRequest) {
 
     const users = await prisma.user.findMany({
       where,
->>>>>>> e201f34 (added stuff)
       orderBy: { createdAt: 'desc' },
       select: {
         id: true,
@@ -43,10 +36,7 @@ export async function GET(req: NextRequest) {
     });
     return NextResponse.json(users);
   } catch (error) {
-<<<<<<< HEAD
-=======
     console.error('Error fetching users:', error);
->>>>>>> e201f34 (added stuff)
     return NextResponse.json({ message: 'Failed to fetch users' }, { status: 500 });
   }
 }

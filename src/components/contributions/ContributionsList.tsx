@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useAuth } from '@/context/AuthContext';
 
 interface Contribution {
   id: string;
@@ -17,7 +16,6 @@ export default function ContributionsList() {
   const [contributions, setContributions] = useState<Contribution[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const { user } = useAuth();
 
   useEffect(() => {
     fetchContributions();
@@ -25,21 +23,24 @@ export default function ContributionsList() {
 
   const fetchContributions = async () => {
     try {
-  // send firebaseUid so the server can exclude contributions the user already has receipts for
-  const params = new URLSearchParams();
-  if (user?.uid) params.set('firebaseUid', user.uid);
-  // hide admin/manual entries from member view
-  params.set('excludeAdminManual', 'true');
-
-  const response = await fetch(`/api/contributions?${params.toString()}`);
-f)
-onst data = await response.json();
-        setContributions(data);
+      const response = await fetch('/api/contributions');
+      if (response.ok) {
+        const data: Contribution[] = await response.json();
+        setContributions(Array.isArray(data) ? data : []);
       } else {
-        setError('Failed to fetch contributions');
+        // try to read error message from response
+        let msg = 'Failed to fetch contributions';
+        try {
+          const errBody = await response.json();
+          if (errBody && errBody.message) msg = String(errBody.message);
+        } catch (e) {
+          // ignore JSON parse errors
+        }
+        setError(msg);
       }
     } catch (error) {
-      setError('Error loading contributions');
+      const message = error instanceof Error ? error.message : String(error);
+      setError(message || 'Error loading contributions');
     } finally {
       setLoading(false);
     }
