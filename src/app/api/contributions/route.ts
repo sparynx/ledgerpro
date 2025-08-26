@@ -4,10 +4,14 @@ import { PrismaClient, Prisma } from '@prisma/client';
 const prisma = new PrismaClient();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
 export async function GET() {
   try {
     const contributions = await prisma.contribution.findMany({
       where: { isActive: true },
+<<<<<<< HEAD
 =======
 export async function GET(request: NextRequest) {
   try {
@@ -48,6 +52,8 @@ export async function GET(request: NextRequest) {
     const contributions = await prisma.contribution.findMany({
       where,
 >>>>>>> e201f34 (added stuff)
+=======
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
       orderBy: { createdAt: 'desc' },
     });
 

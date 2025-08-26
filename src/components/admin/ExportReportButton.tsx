@@ -4,9 +4,12 @@ import { useState } from 'react';
 export default function ExportReportButton({ small = false }: { small?: boolean }) {
   const [loadingType, setLoadingType] = useState<null | 'monthly' | 'weekly'>(null);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   const [loadingGrouped, setLoadingGrouped] = useState(false);
 >>>>>>> e201f34 (added stuff)
+=======
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
   const [error, setError] = useState('');
 
   const handleExport = async (period: 'monthly' | 'weekly') => {
@@ -32,6 +35,7 @@ export default function ExportReportButton({ small = false }: { small?: boolean 
   };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   const handleGroupedExport = async () => {
     setLoadingGrouped(true);
@@ -56,6 +60,8 @@ export default function ExportReportButton({ small = false }: { small?: boolean 
   };
 
 >>>>>>> e201f34 (added stuff)
+=======
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
   const btnClass = small
     ? 'px-3 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 transition-colors'
     : 'px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50';
@@ -77,6 +83,7 @@ export default function ExportReportButton({ small = false }: { small?: boolean 
         {loadingType === 'weekly' ? 'Exporting...' : 'Export Weekly'}
       </button>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       <button
         onClick={handleGroupedExport}
@@ -86,6 +93,8 @@ export default function ExportReportButton({ small = false }: { small?: boolean 
         {loadingGrouped ? 'Exporting...' : 'Export by Contribution'}
       </button>
 >>>>>>> e201f34 (added stuff)
+=======
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
       {error && <div className="text-red-600 text-sm">{error}</div>}
     </div>
   );

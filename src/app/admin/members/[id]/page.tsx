@@ -1,18 +1,25 @@
 "use client"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 "use client"
 >>>>>>> e201f34 (added stuff)
+=======
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
 
 import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
 export default function AdminMemberDetailPage() {
   const router = useRouter();
   const params = useParams();
   const memberId = params?.id as string;
   const [member, setMember] = useState<any>(null);
+<<<<<<< HEAD
 =======
 interface ReceiptItem {
   id: string;
@@ -43,16 +50,22 @@ export default function AdminMemberDetailPage() {
 
   const [member, setMember] = useState<UserDetail | null>(null);
 >>>>>>> e201f34 (added stuff)
+=======
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
     if (memberId) fetchMember();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
     // eslint-disable-next-line
   }, [memberId]);
 
   const fetchMember = async () => {
+<<<<<<< HEAD
 =======
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [memberId]);
@@ -60,10 +73,13 @@ export default function AdminMemberDetailPage() {
   const fetchMember = async () => {
     setLoading(true);
 >>>>>>> e201f34 (added stuff)
+=======
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
     try {
       const res = await fetch(`/api/users/${memberId}`);
       if (!res.ok) throw new Error('Failed to fetch member');
       const data = await res.json();
+<<<<<<< HEAD
 <<<<<<< HEAD
       setMember(data);
     } catch (err: any) {
@@ -74,11 +90,17 @@ export default function AdminMemberDetailPage() {
       const message = err instanceof Error ? err.message : String(err);
       setError(message || 'Error loading member');
 >>>>>>> e201f34 (added stuff)
+=======
+      setMember(data);
+    } catch (err: any) {
+      setError(err.message || 'Error loading member');
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
     } finally {
       setLoading(false);
     }
   };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   if (loading) {
@@ -106,15 +128,21 @@ export default function AdminMemberDetailPage() {
   }
 
 >>>>>>> e201f34 (added stuff)
+=======
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
   return (
     <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
       <div className="max-w-full sm:max-w-3xl mx-auto px-2 sm:px-4 lg:px-8">
         <div className="mb-4 sm:mb-6">
           <div className="text-base font-semibold text-blue-800 mb-1">Sustainable Development Group (SDG)</div>
 <<<<<<< HEAD
+<<<<<<< HEAD
           {/* <div className="text-sm text-gray-800">A CDS under the United Nations Charter for 2030</div> */}
 =======
 >>>>>>> e201f34 (added stuff)
+=======
+          {/* <div className="text-sm text-gray-800">A CDS under the United Nations Charter for 2030</div> */}
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
         </div>
         <button
           onClick={() => router.back()}
@@ -124,6 +152,9 @@ export default function AdminMemberDetailPage() {
         </button>
         <div className="bg-white shadow rounded-lg sm:rounded-xl p-4 sm:p-8 border border-gray-100">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
           {loading ? (
             <div className="flex justify-center items-center py-12">
               <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
@@ -205,6 +236,7 @@ export default function AdminMemberDetailPage() {
               )}
             </>
           ) : null}
+<<<<<<< HEAD
 =======
           <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 break-words">{member.displayName || member.username || member.email}</h1>
           <div className="mb-3 sm:mb-4 text-gray-700 text-xs sm:text-sm">Member ID: <span className="font-mono break-all">{member.id}</span></div>
@@ -278,6 +310,8 @@ export default function AdminMemberDetailPage() {
             <div className="text-gray-700 text-xs sm:text-sm">No receipts found for this member.</div>
           )}
 >>>>>>> e201f34 (added stuff)
+=======
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
         </div>
       </div>
     </div>

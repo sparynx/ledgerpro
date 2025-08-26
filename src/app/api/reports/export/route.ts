@@ -42,6 +42,7 @@ export async function GET(request: NextRequest) {
           },
         },
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         contribution: {
           select: {
@@ -52,17 +53,23 @@ export async function GET(request: NextRequest) {
           },
         },
 >>>>>>> e201f34 (added stuff)
+=======
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
       },
       orderBy: { createdAt: 'desc' },
     });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
     // Prepare data for export
     const exportData = receipts.map(r => ({
       username: r.user?.username || '',
       displayName: r.user?.displayName || '',
       stateCode: r.user?.stateCode || '',
       amount: r.amount.toString(),
+<<<<<<< HEAD
 =======
     const group = searchParams.get('group'); // e.g., 'contribution' to aggregate by contribution
 
@@ -128,11 +135,14 @@ export async function GET(request: NextRequest) {
       contributionDueDate: r.contribution ? r.contribution.dueDate.toISOString() : '',
       paidAmount: r.amount.toString(),
 >>>>>>> e201f34 (added stuff)
+=======
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
       status: r.status,
       timestamp: r.createdAt.toISOString(),
       description: r.description || '',
     }));
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     // CSV export
     const csv = parse(exportData, { fields: ['username', 'displayName', 'stateCode', 'amount', 'status', 'timestamp', 'description'] });
@@ -154,6 +164,10 @@ export async function GET(request: NextRequest) {
     ];
     const csv = parse(exportData, { fields });
 >>>>>>> e201f34 (added stuff)
+=======
+    // CSV export
+    const csv = parse(exportData, { fields: ['username', 'displayName', 'stateCode', 'amount', 'status', 'timestamp', 'description'] });
+>>>>>>> f7a9856 (feat(member-dashboard): filter paid contributions; add timeline and UI improvements)
     return new NextResponse(csv, {
       status: 200,
       headers: {
